@@ -1,4 +1,14 @@
+#![warn(clippy::nursery)]
 #![cfg(target_arch = "wasm32")]
+
+use std::arch::wasm32::v128;
+use std::slice;
+
+use wasm_bindgen::JsValue;
+use wasm_bindgen::prelude::wasm_bindgen;
+
+use decode_chunk::{decode_chunk, decoded_len};
+use encode_chunk::{encode_chunk, encoded_len};
 
 mod base64;
 mod decode_chunk;
@@ -6,18 +16,10 @@ mod encode_chunk;
 mod fuzz;
 pub mod impl_v128;
 
-use std::arch::wasm32::v128;
-use std::slice;
-
-use decode_chunk::{decode_chunk, decoded_len};
-use encode_chunk::{encode_chunk, encoded_len};
-use wasm_bindgen::prelude::wasm_bindgen;
-use wasm_bindgen::JsValue;
-
 /// [`atob`] decodes a string of data from an ascii string.
 #[wasm_bindgen]
 pub fn atob(ascii: String) -> Result<String, JsValue> {
-    Ok(unsafe { String::from_utf8_unchecked(decode(ascii.as_bytes())?)})
+    Ok(unsafe { String::from_utf8_unchecked(decode(ascii.as_bytes())?) })
 }
 
 /// [`btoa`] encodes a string of data to an ascii string.
