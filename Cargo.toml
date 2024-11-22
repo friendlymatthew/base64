@@ -1,7 +1,10 @@
 [package]
 name = "baste64"
+authors = ["Matthew Kim"]
 version = "0.1.0"
 edition = "2021"
+license = "MIT"
+description = "A base64 codec"
 
 [dependencies]
 base64 = "0.22.1"
